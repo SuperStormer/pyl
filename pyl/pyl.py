@@ -9,7 +9,7 @@ def run(code, files=None, filter_=None, begin=None, end=None, imports=None):
 		files = [sys.stdin]
 	if imports is not None:
 		for imp in imports:
-			importlib.import_module(imp)
+			locals()[imp] = importlib.import_module(imp)
 	if begin is not None:
 		exec(begin)
 	if filter_ is not None:
