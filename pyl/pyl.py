@@ -14,6 +14,7 @@ def run(code, files=None, filter_=None, begin=None, end=None, imports=None):
 		exec(begin)
 	if filter_ is not None:
 		filter_ = compile(filter_, "<string>", "eval")
+	code = f"({code},)[-1]"
 	code = compile(code, "<string>", "eval")
 	for file in files:
 		for i, line in enumerate(file):
@@ -21,7 +22,9 @@ def run(code, files=None, filter_=None, begin=None, end=None, imports=None):
 			x = l = line
 			if filter_ is not None and not eval(filter_):
 				continue
-			print(eval(code))
+			res = eval(code)
+			if res is not None:
+				print(res)
 	if end is not None:
 		exec(end)
 
